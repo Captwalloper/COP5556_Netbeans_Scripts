@@ -1,6 +1,9 @@
+#!/bin/sh
+
 #CONFIG
+source Common_Variables.sh
+directory_of_drivers=$scripts_dir
 one_at_a_time=false # pause until "enter" hit between drivers
-directory_of_drivers=$"C:\Users\comcc_000\Desktop\UF Spring 2016\Programming Language Principles\PLP_RPAL\RPAL\rpal"
 
 #FUNCTIONS
 Launch() { # Run the specified Driver
@@ -12,6 +15,10 @@ Launch() { # Run the specified Driver
     fi
 }
 
+Force_Quit() {
+    trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
+}
+
 #SETUP
 printf $"Running $0 ...""\n\n"
 
@@ -19,6 +26,8 @@ printf $"Running $0 ...""\n\n"
 Launch Project_1_Driver.sh
 
 read -p "Press enter to continue..."
+Force_Quit
+
 
 
 
