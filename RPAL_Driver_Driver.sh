@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #CONFIG
 source Common_Variables.sh
