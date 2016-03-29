@@ -31,3 +31,9 @@ Scaffolding to run RPAL in netbeans.
 
 8. **WHY!?** <br>
 	Overview: Why is doing all of this worthwhile? <br>
+	Reasons: <br>
+		1. Because IDE. Refactor-Rename. Find Usages. Navigate->Declaration. Hard things to do intelligently in, say, emacs. <br>
+		2. Regression Testing. Write your driver in such a way that you eval each test you passed in the past each time you run. Know immediately when a change makes them fail. <br>
+		3. (Eventually) Deployment. Currently planned to copy and zip project files as specified at the press of a button. <br>
+		4. You become to PLP what this guy is to long distance racing... [We can build, we can drive, we can live debug: WE ARE INVINCIBLE.] (https://www.youtube.com/watch?v=WK57QCYF4Ug&start=6&end=101)  <br> 
+		
