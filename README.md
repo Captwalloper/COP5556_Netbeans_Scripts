@@ -37,4 +37,7 @@ Reasons:
   * (Eventually) Deployment. Currently planned to copy and zip project files as specified at the press of a button. <br>
   * You become to PLP what this guy is to long distance racing... <br>
   [We can build, we can drive, we can live debug: WE ARE INVINCIBLE.] (https://www.youtube.com/v/WK57QCYF4Ug?start=6&end=61&autoplay=1)  <br> 
+
+<br> <br>
+Credit: *by* Connor McCoy, *with help from* Christopher Waugh
 		
