@@ -1,5 +1,5 @@
 # COP5556_Netbeans_Scripts
-Scaffolding to run RPAL in netbeans.
+*Scripts and tips to develop RPAL projects using NetBeans.*
 
 1. **Install NetBeans** <br>
 Overview: Install latest version of NetBeans with C/C++ modules. <br>
