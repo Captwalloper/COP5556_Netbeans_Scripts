@@ -14,7 +14,7 @@ Scaffolding to run RPAL in netbeans.
 	[Step-By-Step-Guide](Readme_Guides/Setup_Build-Clean.md) <br>
 
 4. **Run/Debug** <br>
-	Overview: Run/Debug your project using a special test file, but still using command args input (that's hardcoded). <br>
+	Overview: Run/Debug (hotkeys F6, CTRL+F5) your project using a special test file, but still using command args input (that's hardcoded). <br>
 	[Step-By-Step-Guide](Readme_Guides/Setup_Run-Debug.md) <br>
 
 5. **Transfer Scripts into Project** <br>
