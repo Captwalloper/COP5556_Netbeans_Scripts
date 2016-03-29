@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #CONFIG
 source Common_Variables.sh # NOTE: if in doubt, use absolute filepath here (this is basically an import statement)
 source Driver_Functions.sh # NOTE: if in doubt, use absolute filepath here (this is basically an import statement)
@@ -6,10 +8,6 @@ tests_directory=$tests_dir
 one_at_a_time=false # pause between tests
 
 #FUNCTIONS
-Instruct() { # Provide a reminder about what input/behavior is expected for a test.
-    Instruct_Helper "$1"
-}
-
 P1() { # Use P1 to interpret the specified program; pass along any additional parameters 
     P1_Helper $*
 }
@@ -34,8 +32,8 @@ EvalAll() {
     cd "$eval_dir"
     for f in *
     do
-#        echo "Test $f;" >> temp.txt
-        if ! Eval_Helper $f; then
+#        echo $f
+        if Eval_Helper $f; then
             ((passcount++));
         fi
         ((count++))
@@ -49,6 +47,7 @@ Test() {
     FILENAME=$1
     (cd "$tests_directory"; File_Contents "$FILENAME");
     Compare $FILENAME;
+    printf "--" "---------------------------------------------""\n"
     Eval $FILENAME;
     Pause $one_at_a_time;
 }

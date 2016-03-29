@@ -22,10 +22,15 @@ Force_Quit() {
 #SETUP
 printf $"Running $0 ...""\n\n"
 
+#MAIN
+
 #Project 1
 Launch Project_1_Driver.sh
 
 read -p "Press enter to continue..."
+
+
+#AFTERMATH
 Force_Quit
 
 
