@@ -1,34 +1,33 @@
 # COP5556_Netbeans_Scripts
 Scaffolding to run RPAL in netbeans.
 
-1. Install Netbeans
+1. Install NetBeans
+	Overview: Install latest version of NetBeans with C/C++ modules.
 	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
-	
 
-1. Install netbeans with c++ module
-	If netbeans is installed without c++...
-	1. Go to tools->plugins->settings
-	2. Make sure all update centers are active (left panel)
-	3. Go to Available Plugins
-	4. Press Chech for Newest
-	5. Install everything in C/C++ category (e.g. Gdbserver , C/C++, optionally NBCndUnit)
 2. Create Project
-	1. Go to file->New Project
-	2. Category=C/C++, Projects=C/C++ Project with Existing Sources; Hit next
-	3. Browse to your project folder
-	4. Select Configuration Mode: Automatic; Next
-3. Copy scripts into your project
-	1. Move [the files] into your project as desired
-4. Create custom configuration
-	1. File->Project Properties
-	2. In Build Category, Press Manage Configurations
-	3. Press New
-	4. Input name (e.g. Driver)
-	5. Press Set Active; OK
-	6. Press apply, OK
-	7. Ensure RPAL_Driver_Driver.sh, Project_1_Driver.sh executable
-	8. Set Run command to "./RPAL_Driver_Driver.sh"
-5. Hit Run
-6. Make sure build/clean works
-7. Make sure debugger works
-	1. Make sure you have every g++ with a -g switch
+	Overview: Create a NetBeans project for Project 1.
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+3. Build/Clean
+	Overview: Make/Clean your project using your custom Makefile and the NetBeans build/clean button (hotkey F5).
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+4. Run/Debug
+	Overview: Run/Debug your project using a special test file, but still using command args input (that's hardcoded).
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+5. Transfer Scripts into Project
+	Overview: Add the appropriate script files to your NetBeans project.
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+6. Configure Project
+	Overview: Setup the "Driver" project configuration. Configure scripts to work on your computer/setup.
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+7. Use
+	Overview: How do you use this setup to develop project 1?
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+
+8. WHY!?
+	Overview: Why is doing all of this worthwhile?
