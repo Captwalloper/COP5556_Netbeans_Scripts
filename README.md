@@ -1,6 +1,10 @@
 # COP5556_Netbeans_Scripts
 Scaffolding to run RPAL in netbeans.
 
+1. Install Netbeans
+	[Step-By-Step-Guide](Readme_Guides/Installing_Netbeans.md)
+	
+
 1. Install netbeans with c++ module
 	If netbeans is installed without c++...
 	1. Go to tools->plugins->settings
