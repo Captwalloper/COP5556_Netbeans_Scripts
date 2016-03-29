@@ -14,7 +14,7 @@
   6. Press apply, OK
   7. Choose the Run category
   8. Set the Run Command field appropriately
-    * For Windows: set it to the location of DriverBootstrap.bat relative to your project directory (or absolutely, if that's hard)
+    * **For Windows:** set it to the location of DriverBootstrap.bat relative to your project directory (or absolutely, if that's hard)
     <br>      *Note:* for me it's "rpal/DriverBootstrap.bat" (rpal is a directory in my project folder)
-    * For Other: set it to the location of RPAL_Driver_Driver.sh instead (see above)
+    * **For Other:** set it to the location of RPAL_Driver_Driver.sh instead (see above)
   9. Apply; OK
