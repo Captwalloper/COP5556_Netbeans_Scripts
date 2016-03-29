@@ -18,3 +18,6 @@
     <br>      *Note:* for me it's "rpal/DriverBootstrap.bat" (rpal is a directory in my project folder)
     * **For Other:** set it to the location of RPAL_Driver_Driver.sh instead (see above)
   9. Apply; OK
+
+##Setup Common_Variables.sh
+  The paths in this shell file must be correct. Make sure they are. Absolute filepaths may work in a pinch.
