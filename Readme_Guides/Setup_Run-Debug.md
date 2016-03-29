@@ -1,7 +1,10 @@
-Install netbeans with c++ module
-	If netbeans is installed without c++...
-	1. Go to tools->plugins->settings
-	2. Make sure all update centers are active (left panel)
-	3. Go to Available Plugins
-	4. Press Chech for Newest
-	5. Install everything in C/C++ category (e.g. Gdbserver , C/C++, optionally NBCndUnit)
+#Setup Run/Debug
+  1. Click Run (hotkey F6)
+  2. If prompted, select your p1 executable from the browser dialog box
+
+###If that didn't work...
+  1. Go to File->Project Properties
+  2. Choose the Run category
+  3. Set the Run Command field appropriately
+    * For Windows: set it to p1.exe
+    * For Other: set it to ./p1.exe
