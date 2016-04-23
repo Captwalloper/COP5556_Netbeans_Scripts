@@ -7,17 +7,10 @@ rpal_directory=$script_dir
 tests_directory=$tests_dir
 
 #FUNCTIONS
-# USE: Instruct_Helper message
-# Example: Instruct_Helper "TYPE 1, CTRL-d"
-Instruct_Helper() { # Provide a reminder about what input/behavior is expected for a test.
-    printf "*********************************************""\n"
-    printf "$1""\n"
-}
 
-# USE: Interpret_Helper programName programParam1 programParam2 ...
-# Example: Interpret_Helper c01
-# Example: Interpret_Helper c02 0 0
-Interpret_Helper() { # Compile and run the specified program; pass along any additional parameters; log everything 
+# USE: Interpret_Helper filename 
+# Example: Interpret_Helper t1
+Interpret_Helper() { # Interpret the specified filename
     printf "*********************************************""\n"  
     printf "RPAL_Interpreter ""$1""\n"                                
     printf "*********************************************""\n"
@@ -25,18 +18,17 @@ Interpret_Helper() { # Compile and run the specified program; pass along any add
 }
 
 Interpret_Helper_1() {
-    if [ $# -eq 1 ] # no additional parameters supplied
-    then
-        (cd "$rpal_directory"; ./rpal -ast -noout tests/$1) 
+    if [ "$#" -eq 1 ]; then
+        ARGS="-ast -noout";
     else 
-        (cd "$rpal_directory"; echo "${@:2}" | ./rpal -ast -noout tests/$1)  
-    fi 
+        ARGS=${@:2};
+    fi
+    (cd "$rpal_directory"; ./rpal $ARGS tests/$1)  
 }
 
-# USE: P1_Helper programName programParam1 programParam2 ...
-# Example: P1_Helper c01
-# Example: P1_Helper c02 0 0
-P1_Helper() { # Compile and run the specified program; pass along any additional parameters; log everything 
+# USE: P1_Helper filename
+# Example: P1_Helper t1
+P1_Helper() { # P1 the specified filename
     printf "*********************************************""\n"  
     printf "P1 ""$1""\n"                                
     printf "*********************************************""\n"
@@ -44,15 +36,21 @@ P1_Helper() { # Compile and run the specified program; pass along any additional
 }
 
 P1_Helper_1() {
-    if [ $# -eq 1 ] # no additional parameters supplied
-    then
-        (cd "$base_directory"; ./p1 -ast "$tests_directory""/""$1") 
-    else 
-        (cd "$base_directory"; echo "${@:2}" | ./p1 -ast "$tests_directory""/""$1")  
-    fi 
+    (cd "$base_directory"; ./p1 -ast "$tests_directory""/""$1") 
 }
 
-Eval_Helper() {
+P2_Helper() { 
+    printf "*********************************************""\n"  
+    printf "P2 ""$1""\n"                                
+    printf "*********************************************""\n"
+    P2_Helper_1 $*                    
+}
+
+P2_Helper_1() {
+    (cd "$base_directory"; ./p2 -all "$tests_directory""/""$1") 
+}
+
+Eval_Helper_P1() {
     FILENAME="$1"
     p1_file="Eval_P1_""$FILENAME"
     interpret_file="Eval_Interpret_""$FILENAME"
@@ -63,27 +61,96 @@ Eval_Helper() {
     Interpret_Helper_1 $* > $interpret_file;
     TrimEndSpaces $interpret_file;
 
-    passed=0;
+    FILENAME="$1"
+
+    passed=false; 
     if cmp -s $p1_file $interpret_file; then
-        passed=1;
+        passed=true; 
 #        rm -f "Eval_P1_""$1" "Interpret_Helper_""$1"
     else 
-        passed=0;
+        passed=false; 
     fi
-    printf "Eval $FILENAME"":\t""$passed"
 
-    rm -f $p1_file".bak" $interpret_file".bak"
-    rm -f $p1_file $interpret_file
-    printf "\n"
-    return $passed;
+    rm -f $p1_file".bak";   rm -f $interpret_file".bak"
+    rm -f $p1_file;         rm -f $interpret_file
+
+    Bool_to_Int_Sane $passed;
+    sane_bool=$?;
+    Bool_to_Int_Bash $passed;
+    bash_bool=$?;
+
+    printf "Eval $FILENAME"":\t""$sane_bool""\n"
+    return $bash_bool;
+}
+
+Eval_Helper_P2() {
+    FILENAME="$1"
+    p2_file="Eval_P2_""$FILENAME"
+    interpret_file="Eval_Interpret_""$FILENAME"
+
+    Timeout P2_to_file "$p2_file" "$*"
+    TrimEndSpaces $p2_file;
+
+    Interpret_Helper_1 $* > $interpret_file;
+    TrimEndSpaces $interpret_file;
+
+    FILENAME="$1"
+
+    passed=false; 
+    if cmp -s $p2_file $interpret_file; then
+        passed=true; 
+#        rm -f "Eval_P1_""$1" "Interpret_Helper_""$1"
+    else 
+        passed=false; 
+    fi
+
+    rm -f $p1_file".bak";   rm -f $interpret_file".bak"
+    rm -f $p1_file;         rm -f $interpret_file
+
+    Bool_to_Int_Sane $passed;
+    sane_bool=$?;
+    Bool_to_Int_Bash $passed;
+    bash_bool=$?;
+
+    printf "Eval $FILENAME"":\t""$sane_bool""\n"
+    return $bash_bool;
+}
+
+Bool_to_Int_Bash() {
+    BOOL=$1;
+    if $BOOL;
+    then 
+        return 0; #yup, 0 is true in bash because reasons: http://stackoverflow.com/questions/2933843/why-0-is-true-but-false-is-1-in-the-shell
+    else
+        return 1; #... and false is anything else
+    fi
+}
+
+Bool_to_Int_Sane() {
+    BOOL=$1;
+    if $BOOL;
+    then 
+        return 1; 
+    else
+        return 0;
+    fi
 }
 
 P1_to_file() {
-    P1_Helper_1 ${@:2} > $1
+    FILE=$1;
+    ARGS=${@:2};
+    P1_Helper_1 $ARGS > $FILE
+}
+
+P2_to_file() {
+    FILE=$1;
+    ARGS=${@:2};
+    P2_Helper_1 $ARGS > $FILE
 }
 
 TrimEndSpaces() {
-    sed -i.bak 's/ *$//' $1
+    FILENAME=$1;
+    sed -i.bak 's/ *$//' $FILENAME
 }
 
 # USE: Timeout command args
@@ -106,18 +173,34 @@ Timeout() { # Move on from input command if it continues longer than TIMEOUT
 
 File_Contents() {
     FILENAME=$1;
-    Instruct_Helper "$(< $FILENAME)";
+    File_Contents_Header "$(< $FILENAME)";
+}
+
+File_Contents_Header() { # Provide a reminder about what input/behavior is expected for a test.
+    printf "*********************************************""\n"
+    printf "$1""\n"
 }
 
 Pause() {
-    TOGGLE=true;
-    if [ $# -eq 1 ] # no additional parameters supplied
+    PAUSE=true;
+    if [ $# -eq 1 ] # 1 parameter supplied
     then
-        TOGGLE=$1;  
+        PAUSE=$1;  
     fi
     
-    if $TOGGLE; 
+    if $PAUSE; 
     then
        read -p "Press enter to continue..." 
     fi
+}
+
+GenerateCustomLines() {
+    eval_dir="$tests_directory"
+    cd "$eval_dir"
+    echo "COPY-PASTE AFTER THIS..." > temp.txt
+    for f in *
+    do
+        echo "Test $f;" >> temp.txt
+    done
+    cd "$OPLDPWD" # return to prior directory
 }

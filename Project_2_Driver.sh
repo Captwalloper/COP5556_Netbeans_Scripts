@@ -3,27 +3,26 @@
 #CONFIG
 source Common_Variables.sh # NOTE: if in doubt, use absolute filepath here (this is basically an import statement)
 source Driver_Functions.sh # NOTE: if in doubt, use absolute filepath here (this is basically an import statement)
-base_directory=$base_dir
 script_directory=$script_dir
 tests_directory=$tests_dir
 one_at_a_time=false # pause between tests
 
 #FUNCTIONS
-P1() { # Use P1 to interpret the specified program; pass along any additional parameters 
-    P1_Helper $*
+P2() { # Use P1 to interpret the specified program; pass along any additional parameters 
+    P2_Helper $*
 }
 
 Interpret() { # Use Bermudez's RPAL interpreter the specified program; pass along any additional parameters
-    Interpret_Helper $*
+    Interpret_Helper $1 -ast
 }
 
 Compare() {
-    Timeout P1 $*
+    Timeout P2 $*
     Interpret $*
 }
 
 Eval() {
-    Eval_Helper_P1 "$*"
+    Eval_Helper_P2 "$*"
 }
 
 EvalAll() {
@@ -53,21 +52,14 @@ Test() {
     Pause $one_at_a_time;
 }
 
-Rename() {
-    FILENAME=$1
-    RENAME=$2
-    (cd "$base_directory"; mv $FILENAME $RENAME);
-}
-
 #SETUP
 cd "$script_directory"
 echo "|---$0---|"; 
-Rename p2.exe p1.exe
 
 #MAIN
 #EvalAll
 
-#Test Test_Ze_Stuff;
+Test Test_Ze_Stuff;
 
 #Test Innerprod;
 #Test Innerprod2;
@@ -125,5 +117,4 @@ Rename p2.exe p1.exe
 #Test wsum2;
 
 #AFTERMATH
-Rename p1.exe p2.exe
 

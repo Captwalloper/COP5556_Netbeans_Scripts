@@ -27,6 +27,9 @@ printf $"Running $0 ...""\n\n"
 #Project 1
 Launch Project_1_Driver.sh
 
+#Project 2
+Launch Project_2_Driver.sh
+
 read -p "Press enter to continue..."
 
 
